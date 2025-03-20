@@ -1,0 +1,35 @@
+N10  G28 ; Home all axes  
+N20  G92 E0 ; Reset extruder position  
+N30  G1 Z2.0 F3000 ; Lift Z to avoid scraping  
+N40  G1 X10 Y10 F5000 ; Move to front-left corner  
+
+; **Thicker Purge Line (3 Layers)**
+N50  G1 Z0.28 F1000 ; First layer height  
+N60  G1 X50 E10 F500 ; Light extrusion for easy removal  
+N70  G1 X100 E20 F500 ; Continue purge line  
+N80  G1 Z0.56 ; 2nd layer  
+N90  G1 X50 E20 F500 ; Increase extrusion for thickness  
+N100 G1 X100 E30 F500 ; Maintain consistency  
+N110 G1 Z0.84 ; 3rd layer  
+N120 G1 X50 E20 F500 ; Keep extrusion steady  
+N130 G1 X100 E30 F500  
+
+N140 G92 E0 ; Reset Extruder  
+N150 G1 Z2.0 ; Lift before starting print  
+
+; **Start Printing Part in Center**
+N160 G1 X125 Y125 Z0.22 ; Move to center, set first layer height  
+N170 G1 E15 ; Set extrusion for first layer  
+; (Insert actual print G-code here)  
+
+; **End G-code for Easy Removal**
+N180 M104 S0 ; Turn off hotend  
+N190 M140 S40 ; Reduce bed temp to weaken adhesion  
+N200 G91 ; Relative positioning  
+N210 G1 Z10 F1000 ; Lift part slightly  
+N220 G1 X-10 Y-10 F1000 ; Knock part off bed  
+N230 G90 ; Absolute positioning  
+
+; **Restart Print**
+N240 M23 "BatchPrint.gcode" ; Reload same print file  
+N250 M24 ; Resume printing  
