@@ -1,0 +1,13 @@
+; **End G-code for Easy Part Removal**
+N180 M104 S0 ; Turn off hotend  
+N190 M140 S80 ; Increase bed temp to 80°C to weaken adhesion  
+N200 G4 S10 ; Wait 10 seconds for heat to take effect  
+N210 M140 S40 ; Cool bed to 40°C quickly  
+N220 G91 ; Relative positioning  
+N230 G1 Z10 F1000 ; Lift part slightly  
+N240 G1 X-10 Y-10 F1000 ; Knock part off bed  
+N250 G90 ; Absolute positioning  
+
+; **Restart Print**
+N260 M23 "BatchPrint.gcode" ; Reload same print file  
+N270 M24 ; Resume printing  
